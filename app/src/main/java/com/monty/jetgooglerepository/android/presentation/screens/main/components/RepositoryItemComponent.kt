@@ -1,12 +1,9 @@
 package com.monty.jetgooglerepository.android.presentation.screens.main.components
 
-import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,7 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,9 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.CrossFade
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -37,9 +34,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.monty.jetgooglerepository.android.R
 import com.monty.jetgooglerepository.android.data.models.RepositoryItem
-import com.monty.jetgooglerepository.android.presentation.theme.AppTheme
 import com.monty.jetgooglerepository.android.presentation.theme.TextColorHint
-import com.monty.jetgooglerepository.android.presentation.utils.DataProvider
 import com.monty.jetgooglerepository.android.presentation.utils.DateTimeUtil
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalSharedTransitionApi::class)
@@ -49,7 +44,6 @@ fun SharedTransitionScope.RepositoryItemComponent(
     repositoryItem: RepositoryItem,
     onClick: () -> Unit
 ) {
-
     Column(
         modifier = Modifier
             .padding(8.dp)
@@ -61,6 +55,7 @@ fun SharedTransitionScope.RepositoryItemComponent(
                 .clip(RoundedCornerShape(12.dp))
                 .background(MaterialTheme.colorScheme.surface)
                 .clickable { onClick() }
+                .testTag(stringResource(R.string.testtag_repositoryitem))
                 .padding(4.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -74,7 +69,7 @@ fun SharedTransitionScope.RepositoryItemComponent(
                     loading = placeholder(R.drawable.repository_placeholder),
                     transition = CrossFade,
                     contentScale = ContentScale.Fit,
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.contentdescription_repositoryimage),
                     modifier = Modifier
                         .size(50.dp)
                         .aspectRatio(1f)
@@ -123,15 +118,4 @@ fun SharedTransitionScope.RepositoryItemComponent(
             }
         }
     }
-
 }
-
-//@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
-//@Composable
-//fun RepositoryItemComponent_Preview() {
-//    AppTheme {
-//        RepositoryItemComponent(
-//            repositoryItem = DataProvider.getFakeRepositoryList().first(),
-//            onClick = {})
-//    }
-//}

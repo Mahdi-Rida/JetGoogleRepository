@@ -26,12 +26,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.monty.jetgooglerepository.android.R
 import com.monty.jetgooglerepository.android.presentation.appcomponents.AppDialog
 import com.monty.jetgooglerepository.android.presentation.navigation.Routes
 import com.monty.jetgooglerepository.android.presentation.screens.main.components.JumpToTop
@@ -45,8 +47,6 @@ import com.monty.jetgooglerepository.android.presentation.screens.main.viewmodel
 import com.monty.jetgooglerepository.android.presentation.theme.AppTheme
 import kotlinx.coroutines.launch
 
-private const val TAG = "MainScreen"
-
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.MainScreen(
@@ -59,27 +59,21 @@ fun SharedTransitionScope.MainScreen(
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
     val jumpThreshold = with(LocalDensity.current) { 56.dp.toPx() }
-
     val jumpToTopButtonEnabled by remember {
         derivedStateOf {
-            println("$TAG, first item = ${listState.firstVisibleItemIndex}")
-            println("$TAG, offset = ${listState.firstVisibleItemScrollOffset}")
-            println("$TAG, is list not empty = ${state.repositoryList.isNotEmpty()}")
             listState.firstVisibleItemIndex != 0 || listState.firstVisibleItemScrollOffset > jumpThreshold
         }
     }
-
     if (state.error.isNotEmpty()) {
         AppDialog(
-            title = "Note",
+            title = stringResource(R.string.note),
             text = state.error,
-            positiveButton = "Ok",
+            positiveButton = stringResource(R.string.ok),
             negativeButton = "",
             onPositiveClick = {
                 onEvent(MainEvent.OnErrorSeen)
-            }) {
-
-        }
+            },
+            onNegativeClick = {})
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -91,15 +85,13 @@ fun SharedTransitionScope.MainScreen(
 
             MainScreenSearchBar(
                 text = state.queryText,
+                hint = stringResource(R.string.enter_repository_name),
                 onTextChange = { onEvent(MainEvent.GetSearchedRepositories(it)) })
 
-            if (!state.isLoading && state.showNotFound) {
-                MainScreenRepoNotFound()
-            }
 
-            if (!state.isLoading && state.showSearchImage) {
-                MainScreenSearchItem()
-            }
+            MainScreenRepoNotFound(visible = !state.isLoading && state.showNotFound)
+
+            MainScreenSearchItem(visible = !state.isLoading && state.showSearchImage)
 
             LazyColumn(
                 state = listState
@@ -111,6 +103,7 @@ fun SharedTransitionScope.MainScreen(
                         onclick = { onEvent(MainEvent.ClearRepositoryList) }
                     )
                 }
+
                 items(state.repositoryList.size) { i ->
                     val repositoryItem = state.repositoryList[i]
                     if (i >= state.repositoryList.size - 1 && !state.endReached && !state.isLoading) {
@@ -140,11 +133,9 @@ fun SharedTransitionScope.MainScreen(
                                 .padding(vertical = 8.dp),
                             horizontalArrangement = Arrangement.Center
                         ) {
-
                             CircularProgressIndicator(
                                 modifier = Modifier.size(24.dp),
                                 strokeWidth = 3.dp,
-//                            progress = { 0.8f }
                             )
                         }
                     }
@@ -156,7 +147,7 @@ fun SharedTransitionScope.MainScreen(
             enabled = jumpToTopButtonEnabled && state.repositoryList.isNotEmpty(),
             onClicked = {
                 scope.launch {
-                    listState.animateScrollToItem(0)
+                    listState.scrollToItem(0)
                 }
             },
             modifier = Modifier.align(Alignment.BottomCenter)

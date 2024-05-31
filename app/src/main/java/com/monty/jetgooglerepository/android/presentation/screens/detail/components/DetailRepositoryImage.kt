@@ -4,8 +4,6 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -13,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.CrossFade
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -33,7 +32,7 @@ fun SharedTransitionScope.DetailRepositoryImage(
         loading = placeholder(R.drawable.repository_placeholder),
         transition = CrossFade,
         contentScale = ContentScale.Fit,
-        contentDescription = null,
+        contentDescription = stringResource(R.string.contentdescription_detailscreenimage),
         modifier = modifier
             .shadow(
                 elevation = 2.dp,

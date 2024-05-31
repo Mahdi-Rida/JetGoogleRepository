@@ -5,6 +5,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * This function will detect the phone is in portrait mode or landscape
+ */
 @Composable
 fun rememberWindowInfo(): WindowInfo {
     val configuration = LocalConfiguration.current

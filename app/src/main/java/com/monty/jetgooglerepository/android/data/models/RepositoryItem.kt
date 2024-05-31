@@ -25,5 +25,6 @@ data class RepositoryItem(
     @SerializedName("created_at")
     val createdAt: String,
 
-    var page: Int = 0
+    var page: Int = 0,
+    var repoName: String = ""
 )

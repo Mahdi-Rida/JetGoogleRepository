@@ -5,6 +5,10 @@ import com.monty.jetgooglerepository.android.data.models.RepositoryItem
 
 object DataProvider {
 
+    /**
+     * This function will return a fake list of RepositoryItems
+     * just for preview purposes
+     */
     fun getFakeRepositoryList(): List<RepositoryItem> {
         val list = ArrayList<RepositoryItem>()
         (1..10).forEach { i ->
