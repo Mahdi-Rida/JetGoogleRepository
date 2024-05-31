@@ -2,16 +2,11 @@ package com.monty.jetgooglerepository.android.presentation.screens.main.componen
 
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.monty.jetgooglerepository.android.R
 import com.monty.jetgooglerepository.android.presentation.theme.AppTheme
 
 private enum class Visibility {
@@ -53,11 +49,11 @@ fun JumpToTop(
                 Icon(
                     imageVector = Icons.Filled.ArrowUpward,
                     modifier = Modifier.height(18.dp),
-                    contentDescription = null
+                    contentDescription = stringResource(R.string.contentdescription_jumptotop)
                 )
             },
             text = {
-                Text(text = "Jump to Top")
+                Text(text = stringResource(R.string.jump_to_top))
             },
             onClick = onClicked,
             containerColor = MaterialTheme.colorScheme.primary,

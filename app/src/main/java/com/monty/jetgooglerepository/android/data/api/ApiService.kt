@@ -10,6 +10,12 @@ import retrofit2.http.Query
 
 interface ApiService {
 
+    /**
+     * This request will search for repositories
+     *
+     * @param query : query text
+     * @param page : page number
+     */
     @GET("{repo}/repos")
     suspend fun getSearchedRepositories(
         @Header("Authorization") token: String = BuildConfig.API_KEY,

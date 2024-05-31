@@ -1,7 +1,6 @@
 package com.monty.jetgooglerepository.android.presentation.screens.main.components
 
 import android.content.res.Configuration
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -18,7 +16,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -31,8 +28,10 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.monty.jetgooglerepository.android.R
 import com.monty.jetgooglerepository.android.presentation.theme.AppTheme
 import com.monty.jetgooglerepository.android.presentation.theme.TextColorHint
 
@@ -40,6 +39,7 @@ import com.monty.jetgooglerepository.android.presentation.theme.TextColorHint
 fun MainScreenSearchBar(
     modifier: Modifier = Modifier,
     text: String,
+    hint:String,
     onTextChange: (String) -> Unit,
     onHasFocus: (Boolean) -> Unit = {}
 ) {
@@ -91,7 +91,7 @@ fun MainScreenSearchBar(
                 }) {
                     Icon(
                         imageVector = if (text.isEmpty()) Icons.Filled.Search else Icons.Filled.Close,
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.contentdescription_searchbaricon),
                         modifier = Modifier
                             .size(20.dp),
                         tint = MaterialTheme.colorScheme.primary
@@ -109,7 +109,7 @@ fun MainScreenSearchBar(
         )
         if (text.isEmpty()) {
             Text(
-                text = "Enter Repository name...",
+                text = hint,
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .padding(start = 16.dp),
@@ -129,6 +129,7 @@ fun MainScreenSearchBar_Preview() {
     AppTheme {
         MainScreenSearchBar(
             text = "",
+            hint = "Enter repository name",
             onTextChange = {})
     }
 }

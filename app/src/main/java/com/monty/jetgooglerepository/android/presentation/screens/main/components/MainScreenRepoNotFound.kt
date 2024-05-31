@@ -1,6 +1,5 @@
 package com.monty.jetgooglerepository.android.presentation.screens.main.components
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,12 +26,13 @@ import com.monty.jetgooglerepository.android.presentation.theme.TextColorHint
 
 @Composable
 fun MainScreenRepoNotFound(
-
+    visible: Boolean
 ) {
-
-
-        Box(modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.TopCenter){
+    if (visible) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
+        ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -42,7 +43,7 @@ fun MainScreenRepoNotFound(
                     painter = painterResource(
                         id = R.drawable.repo_not_found
                     ),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.contentdescription_notfoundimage),
                     modifier = Modifier.size(150.dp),
                 )
 
@@ -51,7 +52,7 @@ fun MainScreenRepoNotFound(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Your search did not match any repositories",
+                        text = stringResource(R.string.search_not_found_title),
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -60,7 +61,7 @@ fun MainScreenRepoNotFound(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "You could try one of the tips below.",
+                        text = stringResource(R.string.search_not_found_subtitle),
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -69,7 +70,7 @@ fun MainScreenRepoNotFound(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "-google\n-facebook\n-instagram",
+                        text = stringResource(R.string.search_not_found_suggestions),
                         textAlign = TextAlign.Start,
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -79,13 +80,15 @@ fun MainScreenRepoNotFound(
                 }
             }
         }
-
+    }
 }
 
 @Preview(backgroundColor = 0xFFE4E4E4, showBackground = true)
 @Composable
 fun MainScreenRepoNotFound_Preview() {
     AppTheme {
-        MainScreenRepoNotFound()
+        MainScreenRepoNotFound(
+            visible = true
+        )
     }
 }

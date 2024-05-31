@@ -3,7 +3,6 @@ package com.monty.jetgooglerepository.android.presentation.navigation
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -83,7 +82,8 @@ fun AppNavigation() {
 
                 DetailScreen(
                     state = state,
-                    animatedVisibilityScope = this
+                    animatedVisibilityScope = this,
+                    navController = navController
                 )
             }
         }

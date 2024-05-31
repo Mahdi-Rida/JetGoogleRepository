@@ -1,6 +1,5 @@
 package com.monty.jetgooglerepository.android.presentation.navigation
 
-import com.monty.jetgooglerepository.android.data.models.RepositoryItem
 import kotlinx.serialization.Serializable
 
 object Routes {

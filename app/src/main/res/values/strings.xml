@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Google Repositories</string>
+    <string name="version">version %1$s</string>
+    <string name="close">close</string>
+    <string name="search_text">Please enter the repository name you would like to see</string>
+    <string name="search_not_found_title">Your search did not match any repositories</string>
+    <string name="search_not_found_subtitle">You could try one of the tips below.</string>
+    <string name="search_not_found_suggestions">-google\n-facebook\n-instagram</string>
+    <string name="clear">Clear</string>
+    <string name="note">Note</string>
+    <string name="ok">Ok</string>
+    <string name="jump_to_top">Jump to Top</string>
+    <string name="enter_repository_name">Enter Repository name...</string>
+    <string name="contentdescription_detailscreenimage">contentDescription_detailScreenImage</string>
+    <string name="contentdescription_stargazerimage">contentDescription_starGazerImage</string>
+    <string name="contentdescription_jumptotop">contentDescription_jumpToTop</string>
+    <string name="contentdescription_notfoundimage">contentDescription_notFoundImage</string>
+    <string name="contentdescription_searchbaricon">contentDescription_searchBarIcon</string>
+    <string name="content_description_searchimage">content_description_searchImage</string>
+    <string name="contentdescription_repositoryimage">contentDescription_repositoryImage</string>
+    <string name="testtag_repositoryitem">testTag_repositoryItem</string>
 </resources>

@@ -8,6 +8,7 @@ import com.monty.jetgooglerepository.android.domain.repository.GithubRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,8 +16,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-private const val TAG = "MainViewModel"
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -94,7 +93,6 @@ class MainViewModel @Inject constructor(
 
         job = viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }
-            delay(1000)
 
             val result = repository.getSearchedRepository(
                 repositoryName = queryText,
