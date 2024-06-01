@@ -70,14 +70,15 @@ fun SharedTransitionScope.MainScreen(
             listState.firstVisibleItemIndex != 0 || listState.firstVisibleItemScrollOffset > jumpThreshold
         }
     }
-    LaunchedEffect(listState.isScrollInProgress) {
-        snapshotFlow { listState.layoutInfo }.collect {
-            snapshotFlow { listState.firstVisibleItemIndex }
-                .distinctUntilChanged()
-                .collectLatest {
+    //this will hide the keyboard when the user start scrolling
+    LaunchedEffect(listState.isScrollInProgress, state.repositoryList.isEmpty()) {
+        snapshotFlow { listState.isScrollInProgress }
+            .distinctUntilChanged()
+            .collectLatest { isScrollInProgress ->
+                if (isScrollInProgress && state.repositoryList.isNotEmpty()) {
                     keyboardController?.hide()
                 }
-        }
+            }
     }
 
     if (state.error.isNotEmpty()) {

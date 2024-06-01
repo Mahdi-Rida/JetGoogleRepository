@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
     private val _state = MutableStateFlow(MainState())
     val state = _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), MainState())
     private var job: Job? = null
-    private var pageIncrement: Int = 10
+    private var pageIncrement: Int = 1
     private var startPage = 1
     private var queryText = ""
 
@@ -59,10 +59,14 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getSearchedRepositories(query: String) {
+        //canceling the current job
+        job?.cancel()
+
         val oldQueryText = state.value.queryText
         _state.update { it.copy(queryText = query) }
 
         if (state.value.queryText.isEmpty()) {
+
             _state.update {
                 it.copy(
                     isLoading = false,
@@ -89,7 +93,6 @@ class MainViewModel @Inject constructor(
     }
 
     private fun loadNextItems() {
-        job?.cancel()
 
         job = viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(isLoading = true) }

@@ -68,7 +68,7 @@ object AppModule {
         app: Application
     ): AppDatabase {
         return Room
-            .databaseBuilder(app, AppDatabase::class.java, "googleRepoDB")
+            .databaseBuilder(app, AppDatabase::class.java, "googleRepoDB.db")
             .build()
     }
 
