@@ -34,6 +34,8 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -45,6 +47,7 @@ android {
         }
         getByName("debug") {
             isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -76,10 +79,11 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
+
     implementation(libs.compose.foundation)
     implementation(libs.compose.icons.extended)
     implementation(libs.compose.navigation)
-    implementation(libs.compose.animation)
+//    implementation(libs.compose.animation)
 
     //Glide
     implementation(libs.glide)
@@ -95,8 +99,8 @@ dependencies {
 
     //Room
     implementation(libs.room.runtime)
-    implementation(libs.room.kotlin)
     kapt(libs.room.compiler)
+    implementation(libs.room.kotlin)
 
     //Hilt
     implementation(libs.hilt.android)
@@ -105,7 +109,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
 
     //Coroutines
-    implementation(libs.coroutines.core)
+//    implementation(libs.coroutines.core)
     implementation(libs.coroutines.runtime)
     implementation(libs.coroutines.viewModel)
     implementation(libs.androidx.viewmodel.compose)
