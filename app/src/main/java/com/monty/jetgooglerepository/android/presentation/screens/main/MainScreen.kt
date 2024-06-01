@@ -48,6 +48,7 @@ import com.monty.jetgooglerepository.android.presentation.screens.main.component
 import com.monty.jetgooglerepository.android.presentation.screens.main.viewmodel.MainEvent
 import com.monty.jetgooglerepository.android.presentation.screens.main.viewmodel.MainState
 import com.monty.jetgooglerepository.android.presentation.theme.AppTheme
+import com.monty.jetgooglerepository.android.presentation.utils.DataProvider
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -164,7 +165,7 @@ fun SharedTransitionScope.MainScreen(
             enabled = jumpToTopButtonEnabled && state.repositoryList.isNotEmpty(),
             onClicked = {
                 scope.launch {
-                    listState.animateScrollToItem(0)
+                    listState.scrollToItem(0)
                 }
             },
             modifier = Modifier.align(Alignment.BottomCenter)
@@ -190,7 +191,7 @@ fun MainScreen_Preview() {
                             isLoading = true,
                             showNotFound = false,
                             showSearchImage = false,
-//                            repositoryList = DataProvider.getFakeRepositoryList()
+                            repositoryList = DataProvider.getFakeRepositoryList()
                         ),
                         onEvent = {},
                         navController = NavController(LocalContext.current),

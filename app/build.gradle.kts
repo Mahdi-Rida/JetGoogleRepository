@@ -83,7 +83,7 @@ dependencies {
     implementation(libs.compose.foundation)
     implementation(libs.compose.icons.extended)
     implementation(libs.compose.navigation)
-//    implementation(libs.compose.animation)
+    implementation(libs.compose.animation)
 
     //Glide
     implementation(libs.glide)
