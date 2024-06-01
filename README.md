@@ -11,6 +11,8 @@ This project was created as a Senior Android developer challenge from Monty Mobi
 - [Features](#features)
 - [Screens](#screens)
 - [Architecture](#architecture)
+- [SharedElementTransition](#SharedElementTransition)
+- [TestingYourApp](#TestingYourApp)
 
 ## Installation
 
@@ -61,8 +63,12 @@ The project follows the MVVM (Model-View-ViewModel) architecture pattern:
 - **View**: The UI layer, built with Jetpack Compose.
 - **ViewModel**: Manages UI-related data in a lifecycle-conscious way. Serves as a bridge between the View and Model. Using Events and States.
 
-## Shared Element Transition
+## SharedElementTransition
 
 The application employs Shared Element Transitions to create a smooth and visually appealing transition between the Main Screen and the Details Screen. When a user clicks on a repository in the Main Screen, the transition animates shared UI elements seamlessly to the Details Screen, enhancing the user experience by maintaining context and continuity.
+
+## TestingYourApp
+
+If you want to test your app without lags, it's recommended to create a release version and install it on your phone. Running the app in debugging mode can cause lag due to additional debugging overhead.
 
 
