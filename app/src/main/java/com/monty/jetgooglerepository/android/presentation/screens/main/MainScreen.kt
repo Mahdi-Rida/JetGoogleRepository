@@ -18,14 +18,17 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,6 +48,8 @@ import com.monty.jetgooglerepository.android.presentation.screens.main.component
 import com.monty.jetgooglerepository.android.presentation.screens.main.viewmodel.MainEvent
 import com.monty.jetgooglerepository.android.presentation.screens.main.viewmodel.MainState
 import com.monty.jetgooglerepository.android.presentation.theme.AppTheme
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -59,11 +64,22 @@ fun SharedTransitionScope.MainScreen(
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
     val jumpThreshold = with(LocalDensity.current) { 56.dp.toPx() }
+    val keyboardController = LocalSoftwareKeyboardController.current
     val jumpToTopButtonEnabled by remember {
         derivedStateOf {
             listState.firstVisibleItemIndex != 0 || listState.firstVisibleItemScrollOffset > jumpThreshold
         }
     }
+    LaunchedEffect(listState.isScrollInProgress) {
+        snapshotFlow { listState.layoutInfo }.collect {
+            snapshotFlow { listState.firstVisibleItemIndex }
+                .distinctUntilChanged()
+                .collectLatest {
+                    keyboardController?.hide()
+                }
+        }
+    }
+
     if (state.error.isNotEmpty()) {
         AppDialog(
             title = stringResource(R.string.note),
@@ -147,7 +163,7 @@ fun SharedTransitionScope.MainScreen(
             enabled = jumpToTopButtonEnabled && state.repositoryList.isNotEmpty(),
             onClicked = {
                 scope.launch {
-                    listState.scrollToItem(0)
+                    listState.animateScrollToItem(0)
                 }
             },
             modifier = Modifier.align(Alignment.BottomCenter)

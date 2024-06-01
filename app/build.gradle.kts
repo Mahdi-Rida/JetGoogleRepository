@@ -80,7 +80,6 @@ dependencies {
     implementation(libs.compose.icons.extended)
     implementation(libs.compose.navigation)
     implementation(libs.compose.animation)
-//    implementation(libs.navigation.compose)
 
     //Glide
     implementation(libs.glide)
@@ -99,7 +98,7 @@ dependencies {
     implementation(libs.room.kotlin)
     kapt(libs.room.compiler)
 
-    //Dagger
+    //Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     kapt(libs.hilt.compiler)
@@ -113,4 +112,20 @@ dependencies {
 
     //Serialization
     implementation(libs.kotlinx.serialization)
+
+    //testing
+    androidTestImplementation(libs.testing.runner)
+    androidTestImplementation(libs.testing.jUnit)
+    androidTestImplementation(libs.testing.composeTesting)
+    debugImplementation(libs.testing.composeTestingManifest)
+
+    kaptAndroidTest(libs.hilt.android.compiler)
+    androidTestImplementation(libs.testing.hilt)
+
+    testImplementation(libs.testing.mockwebserver)
+    testImplementation(libs.testing.jUnit.ext)
+    testImplementation(libs.testing.truth)
+    testImplementation(libs.testing.turbine)
+    testImplementation(libs.testing.assertK)
+    testImplementation(libs.testing.espresso)
 }

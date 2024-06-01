@@ -42,12 +42,10 @@ class GithubRepositoryImpl(
                 // Success response
                 in 200..300 -> {
                     response.body()?.let {
-                        suspend {
-                            it.forEach { repositoryItem ->
-                                repositoryItem.page = page
-                                repositoryItem.repoName = repositoryName
-                                localDataSource.insertRepositoryToDatabase(repositoryItem)
-                            }
+                        it.forEach { repositoryItem ->
+                            repositoryItem.page = page
+                            repositoryItem.repoName = repositoryName
+                            localDataSource.insertRepositoryToDatabase(repositoryItem)
                         }
                         return Resource.Success(it)
                     }
