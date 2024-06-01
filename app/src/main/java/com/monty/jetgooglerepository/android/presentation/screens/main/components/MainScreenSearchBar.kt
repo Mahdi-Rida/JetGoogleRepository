@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -29,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.monty.jetgooglerepository.android.R
@@ -50,7 +53,6 @@ fun MainScreenSearchBar(
     val hasFocus = remember {
         mutableStateOf(false)
     }
-    val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Box(
@@ -68,6 +70,15 @@ fun MainScreenSearchBar(
             onValueChange = {
                 onTextChange(it)
             },
+            keyboardActions = KeyboardActions(
+                onDone = {
+//                    focusManager.clearFocus()
+                    keyboardController?.hide()
+                }
+            ),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Done
+            ),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.surface,
                 disabledContainerColor = MaterialTheme.colorScheme.surface,
@@ -76,18 +87,12 @@ fun MainScreenSearchBar(
                 unfocusedIndicatorColor = MaterialTheme.colorScheme.background,
                 errorTextColor = Color.Black
             ),
+            maxLines = 1,
+            singleLine = true,
             textStyle = MaterialTheme.typography.titleMedium,
             trailingIcon = {
                 IconButton(onClick = {
-                    if (hasFocus.value) {
-                        onTextChange("")
-                        focusRequester.freeFocus()
-                        keyboardController?.hide()
-                        focusManager.clearFocus()
-                        hasFocus.value = false
-                    } else {
-                        focusRequester.freeFocus()
-                    }
+                    onTextChange("")
                 }) {
                     Icon(
                         imageVector = if (text.isEmpty()) Icons.Filled.Search else Icons.Filled.Close,
