@@ -63,21 +63,13 @@ fun AppNavigation() {
             composable<Routes.DetailScreen>
             { backStack ->
                 val args = backStack.toRoute<Routes.DetailScreen>()
-                val repoName = args.repoName
-                val avatarUrl = args.avatarUrl
                 val id = args.id
-                val starCount = args.starCount
 
                 val viewModel = hiltViewModel<DetailViewModel>()
                 val state by viewModel.state.collectAsState()
 
                 LaunchedEffect(key1 = true) {
-                    viewModel.setRepositoryItem(
-                        id = id,
-                        name = repoName,
-                        avatarUrl = avatarUrl,
-                        starCount = starCount
-                    )
+                    viewModel.setRepositoryItem(id = id)
                 }
 
                 DetailScreen(

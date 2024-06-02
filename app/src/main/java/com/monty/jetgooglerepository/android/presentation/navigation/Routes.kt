@@ -12,9 +12,6 @@ object Routes {
 
     @Serializable
     data class DetailScreen(
-        val id:Int,
-        val repoName:String,
-        val avatarUrl:String,
-        val starCount: Int
+        val id:Int
     )
 }

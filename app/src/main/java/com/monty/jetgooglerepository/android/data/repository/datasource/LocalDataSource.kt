@@ -11,10 +11,14 @@ interface LocalDataSource {
      * @param query : query text
      * @param page : page number
      */
-   suspend fun getSearchedRepositoryFromDatabase(
+    fun getSearchedRepositoryFromDatabase(
         query: String,
         page: Int
     ): List<RepositoryItem>
+
+    fun getRepositoryFromDatabase(
+        id:Int
+    ): RepositoryItem
 
     suspend fun insertRepositoryToDatabase(repositoryItem: RepositoryItem)
 }

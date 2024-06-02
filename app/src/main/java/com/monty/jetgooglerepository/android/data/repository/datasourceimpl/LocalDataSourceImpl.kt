@@ -8,8 +8,12 @@ class LocalDataSourceImpl(
     private val appDao: AppDao
 ):LocalDataSource {
 
-    override suspend fun getSearchedRepositoryFromDatabase(query: String, page: Int): List<RepositoryItem> {
+    override fun getSearchedRepositoryFromDatabase(query: String, page: Int): List<RepositoryItem> {
        return appDao.getRepositories(query, page)
+    }
+
+    override fun getRepositoryFromDatabase(id: Int): RepositoryItem {
+        return appDao.getRepository(id)
     }
 
     override suspend fun insertRepositoryToDatabase(repositoryItem: RepositoryItem) {
