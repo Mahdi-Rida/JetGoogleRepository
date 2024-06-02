@@ -143,9 +143,6 @@ fun SharedTransitionScope.MainScreen(
                                 canClick = false
                                 navController.navigate(
                                     Routes.DetailScreen(
-                                        repoName = repositoryItem.name,
-                                        avatarUrl = repositoryItem.owner.avatarUrl,
-                                        starCount = repositoryItem.stargazersCount,
                                         id = repositoryItem.id
                                     )
                                 )

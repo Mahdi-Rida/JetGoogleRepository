@@ -17,4 +17,7 @@ interface GithubRepository {
         page: Int
     ): Resource<List<RepositoryItem>>
 
+    fun getRepository(
+        id:Int
+    ): RepositoryItem
 }

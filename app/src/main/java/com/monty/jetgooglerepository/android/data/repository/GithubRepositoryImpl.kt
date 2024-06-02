@@ -79,4 +79,8 @@ class GithubRepositoryImpl(
             return Resource.Error("Error: ${e.message}")
         }
     }
+
+    override fun getRepository(id: Int): RepositoryItem {
+        return localDataSource.getRepositoryFromDatabase(id)
+    }
 }

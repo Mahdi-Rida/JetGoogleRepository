@@ -43,7 +43,7 @@ class AppDaoTest {
     }
 
     @Test
-    fun insertRepositoryItem_getRepositoryItem_ExpectedResult() {
+    fun insertRepositoryItem_getRepositoryItemList_ExpectedResult() {
         runBlocking {
             val repositoryItem: RepositoryItem = DataProvider.getFakeRepositoryList().first()
             appDao.insert(repositoryItem)
@@ -51,6 +51,17 @@ class AppDaoTest {
             val repositoryList =
                 appDao.getRepositories(repositoryItem.repoName, repositoryItem.page)
             assertThat(repositoryList.contains(repositoryItem))
+        }
+    }
+
+    @Test
+    fun insertRepositoryItem_getRepositoryItem_ExpectedResult() {
+        runBlocking {
+            val repositoryItem: RepositoryItem = DataProvider.getFakeRepositoryList().first()
+            appDao.insert(repositoryItem)
+
+            val repositoryFromDB = appDao.getRepository(repositoryItem.id)
+            assertThat(repositoryFromDB).isEqualTo(repositoryItem)
         }
     }
 }

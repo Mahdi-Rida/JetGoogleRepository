@@ -12,6 +12,9 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(repositoryItem: RepositoryItem)
 
-    @Query("select * from repositoryTable where page=:page and repoName like :query")
+    @Query("SELECT * FROM repositoryTable WHERE page=:page AND repoName LIKE :query")
     fun getRepositories(query:String,page: Int): List<RepositoryItem>
+
+    @Query("SELECT * FROM repositoryTable WHERE id=:id")
+    fun getRepository(id:Int) : RepositoryItem
 }
