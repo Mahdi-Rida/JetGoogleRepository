@@ -21,8 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -63,6 +65,9 @@ fun SharedTransitionScope.MainScreen(
 ) {
 
     val listState = rememberLazyListState()
+    var canClick by remember {
+        mutableStateOf(true)
+    }
     val scope = rememberCoroutineScope()
     val jumpThreshold = with(LocalDensity.current) { 56.dp.toPx() }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -80,6 +85,9 @@ fun SharedTransitionScope.MainScreen(
                     keyboardController?.hide()
                 }
             }
+    }
+    LaunchedEffect(key1 = true){
+        canClick = true
     }
 
     if (state.error.isNotEmpty()) {
@@ -131,14 +139,17 @@ fun SharedTransitionScope.MainScreen(
                         animatedVisibilityScope = animatedVisibilityScope,
                         repositoryItem = repositoryItem,
                         onClick = {
-                            navController.navigate(
-                                Routes.DetailScreen(
-                                    repoName = repositoryItem.name,
-                                    avatarUrl = repositoryItem.owner.avatarUrl,
-                                    starCount = repositoryItem.stargazersCount,
-                                    id = repositoryItem.id
+                            if(canClick){
+                                canClick = false
+                                navController.navigate(
+                                    Routes.DetailScreen(
+                                        repoName = repositoryItem.name,
+                                        avatarUrl = repositoryItem.owner.avatarUrl,
+                                        starCount = repositoryItem.stargazersCount,
+                                        id = repositoryItem.id
+                                    )
                                 )
-                            )
+                            }
                         }
                     )
                 }

@@ -16,10 +16,10 @@ object DataProvider {
                 RepositoryItem(
                     id = i,
                     name = "Repository $i",
-                    owner = Owner(""),
+                    owner = Owner("avatarUrl$i"),
                     stargazersCount = i,
                     createdAt = "2011-06-22T18:55:12Z",
-                    page = 0
+                    page = i
                 )
             )
         }

@@ -96,6 +96,11 @@ fun MainScreenSearchBar(
             textStyle = MaterialTheme.typography.titleMedium,
             trailingIcon = {
                 IconButton(onClick = {
+                    if(text.isEmpty()){
+                        focusRequester.requestFocus()
+                        keyboardController?.show()
+                        return@IconButton
+                    }
                     onTextChange("")
                 }) {
                     Icon(

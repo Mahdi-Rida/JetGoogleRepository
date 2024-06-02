@@ -1,5 +1,6 @@
 package com.monty.jetgooglerepository.android.presentation.screens.main.components
 
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
@@ -133,18 +134,14 @@ fun SharedTransitionScope.RepositoryItemComponent(
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class)
-@Preview(
-    backgroundColor = 0xFFE6E6E6, showBackground = true,
-)
+@Preview
 @Composable
 fun RepositoryItemComponent_Preview() {
     AppTheme {
         SharedTransitionLayout {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "1") {
-                composable(
-                    route = "1"
-                ) {
+            NavHost(navController = navController, startDestination = Routes.MainScreen) {
+                composable<Routes.MainScreen> {
                     RepositoryItemComponent(
                         repositoryItem = DataProvider.getFakeRepositoryList().first(),
                         animatedVisibilityScope = this,
