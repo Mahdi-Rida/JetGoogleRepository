@@ -28,6 +28,11 @@ class ApiServiceTest {
             .create(ApiService::class.java)
     }
 
+    @After
+    fun tearDown() {
+        server.shutdown()
+    }
+
     private fun enqueueMockResponse(fileName: String) {
         val inputStream = javaClass.classLoader!!.getResourceAsStream(fileName)
         val source = inputStream.source().buffer()
@@ -80,8 +85,4 @@ class ApiServiceTest {
         }
     }
 
-    @After
-    fun tearDown() {
-        server.shutdown()
-    }
 }

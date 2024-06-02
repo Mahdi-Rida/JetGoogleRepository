@@ -1,7 +1,9 @@
 package com.monty.jetgooglerepository.android.presentation.screens.main.components
 
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,18 +25,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.bumptech.glide.integration.compose.CrossFade
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.monty.jetgooglerepository.android.R
 import com.monty.jetgooglerepository.android.data.models.RepositoryItem
+import com.monty.jetgooglerepository.android.presentation.navigation.Routes
+import com.monty.jetgooglerepository.android.presentation.screens.main.MainScreen
+import com.monty.jetgooglerepository.android.presentation.screens.main.viewmodel.MainState
+import com.monty.jetgooglerepository.android.presentation.theme.AppTheme
 import com.monty.jetgooglerepository.android.presentation.theme.TextColorHint
+import com.monty.jetgooglerepository.android.presentation.utils.DataProvider
 import com.monty.jetgooglerepository.android.presentation.utils.DateTimeUtil
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalSharedTransitionApi::class)
@@ -114,6 +127,26 @@ fun SharedTransitionScope.RepositoryItemComponent(
                             color = TextColorHint,
                         )
                     }
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview
+@Composable
+fun RepositoryItemComponent_Preview() {
+    AppTheme {
+        SharedTransitionLayout {
+            val navController = rememberNavController()
+            NavHost(navController = navController, startDestination = Routes.MainScreen) {
+                composable<Routes.MainScreen> {
+                    RepositoryItemComponent(
+                        repositoryItem = DataProvider.getFakeRepositoryList().first(),
+                        animatedVisibilityScope = this,
+                        onClick = {}
+                    )
                 }
             }
         }

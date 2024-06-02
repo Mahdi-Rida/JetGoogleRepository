@@ -17,6 +17,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner ="androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -100,6 +101,8 @@ dependencies {
     //Room
     implementation(libs.room.runtime)
     kapt(libs.room.compiler)
+
+    // Kotlin Extensions and Coroutines support for Room
     implementation(libs.room.kotlin)
 
     //Hilt
@@ -109,7 +112,6 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
 
     //Coroutines
-//    implementation(libs.coroutines.core)
     implementation(libs.coroutines.runtime)
     implementation(libs.coroutines.viewModel)
     implementation(libs.androidx.viewmodel.compose)
@@ -117,19 +119,29 @@ dependencies {
     //Serialization
     implementation(libs.kotlinx.serialization)
 
-    //testing
-    androidTestImplementation(libs.testing.runner)
+    //Local unit test
+    testImplementation(libs.testing.jUnit)
+    testImplementation(libs.testing.mockwebserver)
+    testImplementation(libs.testing.truth)
+    testImplementation(libs.testing.assertK)
+
+    //Instrumental unit test
     androidTestImplementation(libs.testing.jUnit)
+    androidTestImplementation(libs.testing.runner)
+
+    androidTestImplementation(libs.testing.espresso)
+    androidTestImplementation(libs.testing.jUnit.ext)
+    androidTestImplementation(libs.testing.rules)
+    androidTestImplementation(libs.testing.room)
+
     androidTestImplementation(libs.testing.composeTesting)
+    androidTestImplementation (libs.testing.truth)
     debugImplementation(libs.testing.composeTestingManifest)
 
     kaptAndroidTest(libs.hilt.android.compiler)
     androidTestImplementation(libs.testing.hilt)
 
-    testImplementation(libs.testing.mockwebserver)
-    testImplementation(libs.testing.jUnit.ext)
-    testImplementation(libs.testing.truth)
-    testImplementation(libs.testing.turbine)
-    testImplementation(libs.testing.assertK)
-    testImplementation(libs.testing.espresso)
+
+
+
 }
